@@ -1,4 +1,6 @@
+
 package com.billTracker.testutils;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,14 +10,14 @@ import java.io.IOException;
 public class TestUtils {
 
 	public static File businessTestFile;
-	public static File boundaryTestFile;
+	public static File DbConnectionTest;
 	public static File exceptionTestFile;
 	static {
 		businessTestFile = new File("./output_revised.txt");
 		businessTestFile.delete();
 
-		boundaryTestFile = new File("./output_boundary_revised.txt");
-		boundaryTestFile.delete();
+		DbConnectionTest = new File("./output_dbconnections_revised.txt");
+		DbConnectionTest.delete();
 
 		exceptionTestFile = new File("./output_exception_revised.txt");
 		exceptionTestFile.delete();
