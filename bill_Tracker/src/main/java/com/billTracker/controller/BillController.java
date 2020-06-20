@@ -1,7 +1,8 @@
 package com.billTracker.controller;
 
 import java.io.IOException;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.billTracker.model.Billes;
 import com.billTracker.service.BillService;
-import com.examples.projects.model.Notes;
+
 
 @Controller
 public class BillController {
@@ -27,15 +28,20 @@ public class BillController {
 	@Autowired
 	private BillService billService;
 
+	@RequestMapping(value = "/test")
+	public String newMethod() {
+		return "Hello word";
+		
+	}
+	
 	@RequestMapping(value = "/")
 	public ModelAndView showHomePage(HttpServletResponse response) throws IOException {
 		return new ModelAndView("index");
 	}
 
-	@RequestMapping(value = "/updateBill", method = RequestMethod.POST)
-	public ModelAndView updateBill(@ModelAttribute("bill") Billes bill) {
-		billService.updateBill(bill);
-		return new ModelAndView("tracker");
+	@RequestMapping(value = "/addBill")
+	public ModelAndView addNote(HttpServletResponse response) throws IOException {
+		return new ModelAndView("addBill");
 	}
 
 	@RequestMapping(value = "/deletebill")
@@ -48,9 +54,13 @@ public class BillController {
 	}
 
 	@RequestMapping(value = "/editBill")
-	public ModelAndView editBill() throws IOException {
-		return new ModelAndView("editBill");
-
+	public ModelAndView editBill(HttpServletRequest request) throws IOException {
+		System.out.println("EditBillMetod");
+		Long id = Long.parseLong(request.getParameter("id"));
+		System.out.println((request.getParameter("id")));
+		Billes billes = billService.getBillById(id);
+		System.out.println(billes.getBillTitle());
+		return new ModelAndView("update", "bill", billes);
 	}
 
 	@RequestMapping(value = "/tracker")
@@ -64,6 +74,43 @@ public class BillController {
 		List<Billes> billes = billService.getAllBillInfo();
 		return new ModelAndView("viewall", "billes", billes);
 
+	}
+
+	@RequestMapping(value = "/updateBill", method = RequestMethod.POST)
+	public ModelAndView updateBill(@ModelAttribute("bill") Billes bill) {
+		billService.updateBill(bill);
+		return new ModelAndView("redirect:/tracker");
+	}
+	@RequestMapping(value = "/addBills")
+	public ModelAndView addNewBill(HttpServletRequest request) throws Exception  {
+		System.out.println("sidj");
+				String billTitle=request.getParameter("billTitle");
+				String category=request.getParameter("category");
+				int amount=Integer.parseInt(request.getParameter("amount"));
+				String date1=request.getParameter("dateOfEntry");
+				Date dateOfEntry=Date.valueOf(date1);
+				
+				String Date2=request.getParameter("dueDate");
+				Date dueDate=Date.valueOf(Date2);
+				String paid=request.getParameter("paid");
+				String unpaid=request.getParameter("unpaid");
+				
+	
+		  
+				Billes billes = new Billes();
+				billes.setBillTitle(billTitle);
+				billes.setCategory(category);
+				billes.setAmount(amount);
+
+				billes.setDateOfEntry(dateOfEntry);
+				billes.setDueDate(dueDate);
+
+				billes.setPaid(paid);
+				billes.setUnpaid(unpaid);
+		         billService.insertBill(billes);
+		 
+
+		return new ModelAndView("redirect:/tracker");
 	}
 
 }

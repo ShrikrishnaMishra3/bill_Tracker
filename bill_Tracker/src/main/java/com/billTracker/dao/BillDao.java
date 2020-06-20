@@ -12,6 +12,7 @@ public List<Billes> getAllBillInfo();
 	public boolean deleteBill(Long id);
 	public Billes getBillById(Long id);
 	public List<Billes> getAllBilles();
-	public long updateBill(Billes bill);
+	public Long updateBill(Billes bill);
 	
+		
 }

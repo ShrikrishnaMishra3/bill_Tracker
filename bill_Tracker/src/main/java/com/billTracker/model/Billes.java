@@ -1,7 +1,8 @@
 
 package com.billTracker.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 
 @Entity
 
-@Table(name = "bill_info")
+@Table(name = "bill_infos")
 public class Billes {
 
 	@Id
@@ -28,6 +29,13 @@ public class Billes {
 
 	@Column
 	private double amount;
+
+	@Override
+	public String toString() {
+		return "Billes [id=" + id + ", billTitle=" + billTitle + ", category=" + category + ", amount=" + amount
+				+ ", dateOfEntry=" + dateOfEntry + ", dueDate=" + dueDate + ", paid=" + paid + ", unpaid=" + unpaid
+				+ "]";
+	}
 
 	@Column
 	private Date dateOfEntry;
@@ -67,7 +75,7 @@ public class Billes {
 		this.amount = amount;
 	}
 
-	public Date getDateOfEntry() {
+	public  Date getDateOfEntry() {
 		return dateOfEntry;
 	}
 
@@ -104,11 +112,6 @@ public class Billes {
 
 	@Column
 	private String unpaid;
-
-	public Billes()
-	{ // TODO Auto-generated constructor stub }
-  
-  }
 
 
 	public boolean isActive;

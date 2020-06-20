@@ -40,7 +40,10 @@ public class BillDaoImpl implements BillDao {
 
 	@Override
 	public Billes getBillById(Long id) {
-		return sessionFactory.getCurrentSession().load(Billes.class, id);
+		System.out.println("Dao of getBIllBy iD");
+		Billes bill=  sessionFactory.getCurrentSession().load(Billes.class, id);
+		System.out.println(bill);
+		return bill;
 
 	}
 
@@ -50,7 +53,7 @@ public class BillDaoImpl implements BillDao {
 	}
 
 	@Override
-	public long updateBill(Billes bill) {
+	public Long updateBill(Billes bill) {
 			sessionFactory.getCurrentSession().update(bill);
 			return bill.getId();
 	}
