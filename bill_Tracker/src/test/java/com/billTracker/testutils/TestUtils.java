@@ -9,18 +9,18 @@ import java.io.IOException;
 
 public class TestUtils {
 
-	public static File businessTestFile;
+	public static File FunctionalTestFile;
 	public static File DbConnectionTest;
-	public static File exceptionTestFile;
+	public static File BillControllerTestFile;
 	static {
-		businessTestFile = new File("./output_revised.txt");
-		businessTestFile.delete();
+		FunctionalTestFile = new File("./output_revised.txt");
+		FunctionalTestFile.delete();
 
 		DbConnectionTest = new File("./output_dbconnections_revised.txt");
 		DbConnectionTest.delete();
 
-		exceptionTestFile = new File("./output_exception_revised.txt");
-		exceptionTestFile.delete();
+		BillControllerTestFile = new File("./output_functional_revised.txt");
+		BillControllerTestFile.delete();
 	}
 
 	public static void yakshaAssert(String testName, Object result, File file) throws IOException {

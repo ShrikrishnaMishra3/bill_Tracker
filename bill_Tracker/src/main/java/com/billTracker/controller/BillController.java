@@ -21,19 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.billTracker.model.Billes;
 import com.billTracker.service.BillService;
 
-
 @Controller
 public class BillController {
 
 	@Autowired
 	private BillService billService;
 
-	@RequestMapping(value = "/test")
-	public String newMethod() {
-		return "Hello word";
-		
-	}
-	
 	@RequestMapping(value = "/")
 	public ModelAndView showHomePage(HttpServletResponse response) throws IOException {
 		return new ModelAndView("index");
@@ -81,34 +74,32 @@ public class BillController {
 		billService.updateBill(bill);
 		return new ModelAndView("redirect:/tracker");
 	}
+
 	@RequestMapping(value = "/addBills")
-	public ModelAndView addNewBill(HttpServletRequest request) throws Exception  {
+	public ModelAndView addNewBill(HttpServletRequest request) throws Exception {
 		System.out.println("sidj");
-				String billTitle=request.getParameter("billTitle");
-				String category=request.getParameter("category");
-				int amount=Integer.parseInt(request.getParameter("amount"));
-				String date1=request.getParameter("dateOfEntry");
-				Date dateOfEntry=Date.valueOf(date1);
-				
-				String Date2=request.getParameter("dueDate");
-				Date dueDate=Date.valueOf(Date2);
-				String paid=request.getParameter("paid");
-				String unpaid=request.getParameter("unpaid");
-				
-	
-		  
-				Billes billes = new Billes();
-				billes.setBillTitle(billTitle);
-				billes.setCategory(category);
-				billes.setAmount(amount);
+		String billTitle = request.getParameter("billTitle");
+		String category = request.getParameter("category");
+		int amount = Integer.parseInt(request.getParameter("amount"));
+		String date1 = request.getParameter("dateOfEntry");
+		Date dateOfEntry = Date.valueOf(date1);
 
-				billes.setDateOfEntry(dateOfEntry);
-				billes.setDueDate(dueDate);
+		String Date2 = request.getParameter("dueDate");
+		Date dueDate = Date.valueOf(Date2);
+		String paid = request.getParameter("paid");
+		String unpaid = request.getParameter("unpaid");
 
-				billes.setPaid(paid);
-				billes.setUnpaid(unpaid);
-		         billService.insertBill(billes);
-		 
+		Billes billes = new Billes();
+		billes.setBillTitle(billTitle);
+		billes.setCategory(category);
+		billes.setAmount(amount);
+
+		billes.setDateOfEntry(dateOfEntry);
+		billes.setDueDate(dueDate);
+
+		billes.setPaid(paid);
+		billes.setUnpaid(unpaid);
+		billService.insertBill(billes);
 
 		return new ModelAndView("redirect:/tracker");
 	}
